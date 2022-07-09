@@ -15,6 +15,7 @@
 
 This Dashboard was created with the purpose of showing knowledge in different web development abilities. 
 Made with the intention of showing my development flow and skills.
+You can check the design through the link: https://www.figma.com/file/WFyRPMM0S1pHvFf4vN5vl6/Generic-Dashboard
 
 ### Built With
 
