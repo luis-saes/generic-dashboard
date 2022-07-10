@@ -1,0 +1,14 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row {
+  height: inherit;
+  justify-content: center;
+}
+
+.modalBackground {
+  background-color: #fff;
+}
