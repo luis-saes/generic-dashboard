@@ -16,7 +16,7 @@ const Modal = () => {
             <div className={styles.title}>Login</div>
             <Input className="mt-3" label="E-Mail" controlType="email" />
             <Input className="mt-3" label="Password" controlType="password" />
-            <Link to="/">
+            <Link to="/dashboard">
               <Button className={`${styles.button} mt-4`} variant="primary">
                 Login
               </Button>
