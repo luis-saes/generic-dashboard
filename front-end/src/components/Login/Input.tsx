@@ -4,13 +4,14 @@ import Form from "react-bootstrap/Form";
 type PrivateProps = {
   label: string;
   controlType: string;
+  className?: string;
   controlPlaceHolder?: string;
   text?: string;
 };
 
 const Input = (props: PrivateProps) => {
   return (
-    <div>
+    <div className={props.className}>
       <Form.Label>{props.label}</Form.Label>
       <Form.Control
         type={props.controlType}
