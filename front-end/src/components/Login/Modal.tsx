@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Input from "./Input";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -15,9 +16,11 @@ const Modal = () => {
             <div className={styles.title}>Login</div>
             <Input className="mt-3" label="E-Mail" controlType="email" />
             <Input className="mt-3" label="Password" controlType="password" />
-            <Button className={`${styles.button} mt-4`} variant="primary">
-              Login
-            </Button>
+            <Link to="/">
+              <Button className={`${styles.button} mt-4`} variant="primary">
+                Login
+              </Button>
+            </Link>
           </div>
         </Col>
       </Row>
