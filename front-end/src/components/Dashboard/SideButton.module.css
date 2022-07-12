@@ -1,0 +1,41 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.active {
+  opacity: 1;
+}
+
+.notActive {
+  opacity: 0.8;
+}
+
+.sideButton {
+  width: 90%;
+  color: #fff;
+  font-size: 18;
+  height: 27px;
+  margin-top: 7px;
+}
+
+.underline {
+  height: 1px;
+  width: 90%;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 7px;
+}
+
+.main:hover {
+  opacity: 1;
+}
+
+.main:hover .underline {
+  opacity: 1;
+}
+
+.main:hover .sideButton {
+  opacity: 1;
+}
