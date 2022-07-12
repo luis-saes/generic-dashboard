@@ -42,8 +42,17 @@ WIP
 
 # Roadmap
 
-- [x] WIP
-    - [ ] WIP
+- [x] Design dashboard pages with Figma
+- [x] Create React front-end structure
+- [x] Create Express back-end structure
+- [x] Create SQLite database structure
+- [ ] Develop front-end placeholders
+- [ ] Design SQLite tables
+- [ ] Create and populate SQLite tables
+- [ ] Create backend MVC
+- [ ] Integrate front-end with back-end data
+- [ ] Create login authentication
+- [ ] Deploy application
 
 ## License
 
