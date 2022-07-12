@@ -30,11 +30,15 @@ WIP
 
 ### Prerequisites
 
-WIP
+Node version 16.16.0 or later.
+NPM version 8.13.2 or later.
 
 ### Installation
 
-WIP
+To get a copy of the dashboard code on your machine, just clone the repository with the following command:
+```sh
+$ git clone https://github.com/luis-saes/portfolio-dashboard.git
+```
 
 # Usage
 
