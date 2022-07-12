@@ -1,4 +1,17 @@
 .sidebar {
   background-color: #405983;
   width: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sideButtons {
+  width: 100%;
+}
+
+.title {
+  font-size: 24px;
+  color: #fff;
+  font-weight: 700;
 }
