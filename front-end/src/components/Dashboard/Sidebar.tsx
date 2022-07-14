@@ -7,11 +7,11 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
       <div className={`${styles.title} mt-3`}>Generic Dashboard</div>
       <div className={`${styles.sideButtons} mt-4`}>
-        <SideButton text={"Home"} active={true} />
-        <SideButton text={"Product"} />
-        <SideButton text={"Clients"} />
-        <SideButton text={"Employees"} />
-        <SideButton text={"Sales"} />
+        <SideButton text="Home" link="/dashboard" active={true} />
+        <SideButton text="Products" link="/products" />
+        <SideButton text="Clients" link="/clients" />
+        <SideButton text="Employees" link="/employees" />
+        <SideButton text="Sales" link="/sales" />
       </div>
     </div>
   );
