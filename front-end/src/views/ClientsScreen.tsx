@@ -1,13 +1,14 @@
 import React from "react";
-import styles from "./ClientsScreen.module.css";
-import stylesSidebar from "./SidebarMain.module.css";
 import Sidebar from "../components/Dashboard/Sidebar";
+import styles from "./ClientsScreen.module.css";
+import stylesBoard from "./Board.module.css";
+import stylesSidebar from "./SidebarMain.module.css";
 
 const ClientsScreen = () => {
   return (
     <div className={stylesSidebar.main}>
       <Sidebar />
-      <div className={styles.board}></div>
+      <div className={stylesBoard.board}></div>
     </div>
   );
 };
