@@ -1,5 +1,7 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import Pencil from "../../assets/pencil-fill.svg";
+import Trash from "../../assets/trash-fill.svg";
 import styles from "./GenericTable.module.css";
 
 type PrivateProps = {
@@ -8,26 +10,44 @@ type PrivateProps = {
 };
 
 const GenericTable = (props: PrivateProps) => {
-  console.log(props.headArray);
-  console.log(props.dataArray);
+  const editHandler = (): void => {
+    console.log(0);
+  };
+
+  const deleteHandler = (): void => {
+    console.log(0);
+  };
 
   return (
     <div className={styles.main}>
       <Table striped bordered hover>
         <thead>
           <tr>
-            {props.headArray?.map((val) => (
-              <th>{val}</th>
+            {props.headArray?.map((val, index) => (
+              <th key={index}>{val}</th>
             ))}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {props.dataArray?.map((array) => {
+          {props.dataArray?.map((array, i) => {
             return (
-              <tr>
-                {array?.map((val) => {
-                  return <td>{val}</td>;
+              <tr key={i}>
+                {array?.map((val, j) => {
+                  return <td key={j}>{val}</td>;
                 })}
+                <td className={styles.actions}>
+                  <div className={styles.wrapper} onClick={editHandler}>
+                    <img
+                      src={Pencil}
+                      alt="pencil icon"
+                      className={styles.icon}
+                    />
+                  </div>
+                  <div className={styles.wrapper} onClick={deleteHandler}>
+                    <img src={Trash} alt="trash icon" className={styles.icon} />
+                  </div>
+                </td>
               </tr>
             );
           })}
