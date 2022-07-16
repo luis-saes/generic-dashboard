@@ -16,9 +16,7 @@ const ProductsScreen = () => {
     [5, "chicken", 22.8, 153],
   ]);
 
-  const editLineHandler = (index: string | number) => {
-    console.log("<father />called with index: " + index);
-  };
+  const editLineHandler = (index: string | number) => {};
 
   const deleteLineHandler = (index: string | number) => {
     setTableData(

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useInsertionEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Pencil from "../../assets/pencil-fill.svg";
@@ -17,8 +17,13 @@ const GenericTable = (props: PrivateProps) => {
   const [edited, setEdited] = useState<boolean[]>(
     props.dataArray.map((el) => false)
   );
+  const [editTempData, setEditTempData] = useState<(string | number)[]>([]);
 
   const headArrayLength: number = props.headArray.length;
+
+  useInsertionEffect(() => {
+    console.log(editTempData);
+  }, [editTempData]);
 
   const editHandler = (index: number): void => {
     if (edited[index]) {
@@ -26,10 +31,24 @@ const GenericTable = (props: PrivateProps) => {
     } else {
       setEdited([...edited.slice(0, index), true, ...edited.slice(index + 1)]);
     }
+
+    let tempArr: any = [];
+    tempArr = props.dataArray[index].slice(1);
+
+    setEditTempData([...tempArr]);
   };
 
   const deleteHandler = (index: number): void => {
     props.deleteLine(props.dataArray[index][0]);
+  };
+
+  const typeHandler = (event: any, i: number, j: number): void => {
+    event.preventDefault();
+    setEditTempData([
+      ...editTempData.slice(0, j),
+      event.target.value,
+      ...editTempData.slice(j + 1),
+    ]);
   };
 
   let mTest = props.dataArray.map((array, i) => {
@@ -57,7 +76,11 @@ const GenericTable = (props: PrivateProps) => {
                   width: 90 / (headArrayLength - 1) + "%",
                 }}
               >
-                <Form.Control size="sm" />
+                <Form.Control
+                  size="sm"
+                  defaultValue={editTempData[j - 1]}
+                  onChange={(event) => typeHandler(event, i, j - 1)}
+                />
               </td>
             );
           }
@@ -73,8 +96,6 @@ const GenericTable = (props: PrivateProps) => {
       </tr>
     );
   });
-
-  console.log(mTest);
 
   return (
     <div className={styles.main}>

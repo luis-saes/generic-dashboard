@@ -22,9 +22,7 @@ const SalesScreen = () => {
     [5, 2, 2, 2, 91.98],
   ]);
 
-  const editLineHandler = (index: string | number) => {
-    console.log("called with index: " + index);
-  };
+  const editLineHandler = (index: string | number) => {};
 
   const deleteLineHandler = (index: string | number) => {
     setTableData(
