@@ -11,8 +11,6 @@
   align-items: center;
   justify-content: space-around;
   height: 40px;
-  padding: 0 0 0 0 !important;
-  margin: 0 0 0 0 !important;
 }
 
 .wrapper {
@@ -27,4 +25,8 @@
 
 .wrapper:hover > .icon {
   filter: brightness(0%);
+}
+
+.editing {
+  padding: 4px 2px 2px 2px !important;
 }

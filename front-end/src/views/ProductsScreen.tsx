@@ -17,7 +17,7 @@ const ProductsScreen = () => {
   ]);
 
   const editLineHandler = (index: string | number) => {
-    console.log("called with index: " + index);
+    console.log("<father />called with index: " + index);
   };
 
   const deleteLineHandler = (index: string | number) => {
