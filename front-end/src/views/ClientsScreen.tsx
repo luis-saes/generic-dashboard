@@ -20,7 +20,12 @@ const ClientsScreen = () => {
     <div className={stylesSidebar.main}>
       <Sidebar />
       <div className={stylesBoard.board}>
-        <GenericTable headArray={headArray} dataArray={tableTestData} />
+        <GenericTable
+          headArray={headArray}
+          dataArray={tableTestData}
+          editLine={() => console.log(0)}
+          deleteLine={() => console.log(0)}
+        />
       </div>
     </div>
   );
