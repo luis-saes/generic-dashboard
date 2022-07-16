@@ -16,11 +16,11 @@ const ProductsScreen = () => {
     [5, "chicken", 22.8, 153],
   ]);
 
-  const editLineHandler = (index: any) => {
+  const editLineHandler = (index: string | number) => {
     console.log("called with index: " + index);
   };
 
-  const deleteLineHandler = (index: any) => {
+  const deleteLineHandler = (index: string | number) => {
     setTableData(
       tableData.filter((el) => {
         return el[0] !== index;

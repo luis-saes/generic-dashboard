@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import GenericTable from "../components/Tables/GenericTable";
 import styles from "./ClientsScreen.module.css";
@@ -8,13 +8,25 @@ import stylesSidebar from "./SidebarMain.module.css";
 const ClientsScreen = () => {
   const headArray: string[] = ["ID", "Name", "Cell Phone Number"];
 
-  const tableTestData: (string | number)[][] = [
+  const [tableData, setTableData] = useState<(string | number)[][]>([
     [1, "Laibah Ashley", 7079690494],
     [2, "Joseff Stark", 9118041434],
     [3, "Jay Mohamed", 5138211780],
     [4, "Damon Bryant", 5238765584],
     [5, "Ayra Martins", 4782410090],
-  ];
+  ]);
+
+  const editLineHandler = (index: string | number) => {
+    console.log("called with index: " + index);
+  };
+
+  const deleteLineHandler = (index: string | number) => {
+    setTableData(
+      tableData.filter((el) => {
+        return el[0] !== index;
+      })
+    );
+  };
 
   return (
     <div className={stylesSidebar.main}>
@@ -22,9 +34,9 @@ const ClientsScreen = () => {
       <div className={stylesBoard.board}>
         <GenericTable
           headArray={headArray}
-          dataArray={tableTestData}
-          editLine={() => console.log(0)}
-          deleteLine={() => console.log(0)}
+          dataArray={tableData}
+          editLine={editLineHandler}
+          deleteLine={deleteLineHandler}
         />
       </div>
     </div>
