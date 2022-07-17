@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useInsertionEffect } from "react";
+import React, { useState, useInsertionEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Pencil from "../../assets/pencil-fill.svg";
 import Trash from "../../assets/trash-fill.svg";
 import styles from "./GenericTable.module.css";
-import FormText from "react-bootstrap/esm/FormText";
 
 type PrivateProps = {
   headArray: string[];
   dataArray: (string | number)[][];
-  editLine: (val: string | number) => void;
+  editLine: (index: any, newLine: (string | number)[]) => void;
   deleteLine: (val: string | number) => void;
 };
 
@@ -28,6 +27,7 @@ const GenericTable = (props: PrivateProps) => {
   const editHandler = (index: number): void => {
     if (edited[index]) {
       setEdited([...edited.slice(0, index), false, ...edited.slice(index + 1)]);
+      props.editLine(index, editTempData);
     } else {
       setEdited([...edited.slice(0, index), true, ...edited.slice(index + 1)]);
     }
@@ -51,7 +51,7 @@ const GenericTable = (props: PrivateProps) => {
     ]);
   };
 
-  let mTest = props.dataArray.map((array, i) => {
+  let tableBody = props.dataArray.map((array, i) => {
     return (
       <tr key={i}>
         {array.map((val, j) => {
@@ -108,7 +108,7 @@ const GenericTable = (props: PrivateProps) => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>{mTest}</tbody>
+        <tbody>{tableBody}</tbody>
       </Table>
     </div>
   );

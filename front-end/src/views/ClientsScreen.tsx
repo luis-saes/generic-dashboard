@@ -16,9 +16,9 @@ const ClientsScreen = () => {
     [5, "Ayra Martins", 4782410090],
   ]);
 
-  const editLineHandler = (index: string | number) => {};
+  const editLineHandler = (index: any, newLine: (string | number)[]) => {};
 
-  const deleteLineHandler = (index: string | number) => {
+  const deleteLineHandler = (index: any) => {
     setTableData(
       tableData.filter((el) => {
         return el[0] !== index;

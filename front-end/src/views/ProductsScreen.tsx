@@ -16,9 +16,18 @@ const ProductsScreen = () => {
     [5, "chicken", 22.8, 153],
   ]);
 
-  const editLineHandler = (index: string | number) => {};
+  const editLineHandler = (index: any, newLine: (string | number)[]) => {
+    let newLineWithIndex: (string | number)[] = [];
+    newLineWithIndex = [...tableData[index].slice(0, 1), ...newLine];
 
-  const deleteLineHandler = (index: string | number) => {
+    setTableData([
+      ...tableData.slice(0, index),
+      newLineWithIndex,
+      ...tableData.slice(index + 1),
+    ]);
+  };
+
+  const deleteLineHandler = (index: any) => {
     setTableData(
       tableData.filter((el) => {
         return el[0] !== index;
