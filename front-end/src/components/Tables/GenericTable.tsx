@@ -1,6 +1,7 @@
 import React, { useState, useInsertionEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
+import Toast from "react-bootstrap/Toast";
 import Pencil from "../../assets/pencil-fill.svg";
 import Trash from "../../assets/trash-fill.svg";
 import styles from "./GenericTable.module.css";
@@ -17,6 +18,7 @@ const GenericTable = (props: PrivateProps) => {
     props.dataArray.map((el) => false)
   );
   const [editTempData, setEditTempData] = useState<(string | number)[]>([]);
+  const [show, setShow] = useState(false);
 
   const headArrayLength: number = props.headArray.length;
 
@@ -24,12 +26,36 @@ const GenericTable = (props: PrivateProps) => {
     console.log(editTempData);
   }, [editTempData]);
 
+  const isEditing = (boolArr: boolean[]) => {
+    let isEditing: boolean = false;
+    let index: number = 0;
+    boolArr.forEach((el, i) => {
+      if (el) {
+        isEditing = true;
+        index = i;
+        return;
+      }
+    });
+    return [isEditing, index];
+  };
+
   const editHandler = (index: number): void => {
+    const [currentEditing, editingIndex] = isEditing(edited);
+    if (currentEditing && editingIndex !== index) {
+      //TODO show toast "finish editing one element"
+      setShow(true);
+      return;
+    }
+
     if (edited[index]) {
       setEdited([...edited.slice(0, index), false, ...edited.slice(index + 1)]);
       props.editLine(index, editTempData);
+
+      //TODO pencil icon to save
     } else {
       setEdited([...edited.slice(0, index), true, ...edited.slice(index + 1)]);
+
+      //TODO save icon to pencil
     }
 
     let tempArr: any = [];
@@ -97,8 +123,18 @@ const GenericTable = (props: PrivateProps) => {
     );
   });
 
+  let toast = (
+    <Toast onClose={() => setShow(false)} show={show} delay={3000} bg="danger">
+      <Toast.Header>
+        <strong className="me-auto">Error</strong>
+      </Toast.Header>
+      <Toast.Body>Only one line can be edited at a time.</Toast.Body>
+    </Toast>
+  );
+
   return (
     <div className={styles.main}>
+      {toast}
       <Table striped bordered hover>
         <thead>
           <tr>
