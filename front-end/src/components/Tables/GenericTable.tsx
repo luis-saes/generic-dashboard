@@ -18,7 +18,8 @@ const GenericTable = (props: PrivateProps) => {
     props.dataArray.map((el) => false)
   );
   const [editTempData, setEditTempData] = useState<(string | number)[]>([]);
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>("");
 
   const headArrayLength: number = props.headArray.length;
 
@@ -42,7 +43,7 @@ const GenericTable = (props: PrivateProps) => {
   const editHandler = (index: number): void => {
     const [currentEditing, editingIndex] = isEditing(edited);
     if (currentEditing && editingIndex !== index) {
-      //TODO show toast "finish editing one element"
+      setToastMessage("Only one line can be edited at a time.");
       setShow(true);
       return;
     }
@@ -65,6 +66,11 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const deleteHandler = (index: number): void => {
+    if (isEditing(edited)[0]) {
+      setToastMessage("Finish editing before trying to remove.");
+      setShow(true);
+      return;
+    }
     props.deleteLine(props.dataArray[index][0]);
   };
 
@@ -124,11 +130,18 @@ const GenericTable = (props: PrivateProps) => {
   });
 
   let toast = (
-    <Toast onClose={() => setShow(false)} show={show} delay={3000} bg="danger">
+    <Toast
+      onClose={() => setShow(false)}
+      show={show}
+      delay={3000}
+      autohide
+      bg="danger"
+      style={{ position: "absolute" }}
+    >
       <Toast.Header>
         <strong className="me-auto">Error</strong>
       </Toast.Header>
-      <Toast.Body>Only one line can be edited at a time.</Toast.Body>
+      <Toast.Body>{toastMessage}</Toast.Body>
     </Toast>
   );
 
