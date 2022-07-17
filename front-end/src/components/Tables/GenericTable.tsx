@@ -1,9 +1,10 @@
-import React, { useState, useInsertionEffect } from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Toast from "react-bootstrap/Toast";
 import Pencil from "../../assets/pencil-fill.svg";
 import Trash from "../../assets/trash-fill.svg";
+import Check from "../../assets/check-circle-fill.svg";
 import styles from "./GenericTable.module.css";
 
 type PrivateProps = {
@@ -22,10 +23,6 @@ const GenericTable = (props: PrivateProps) => {
   const [toastMessage, setToastMessage] = useState<string>("");
 
   const headArrayLength: number = props.headArray.length;
-
-  useInsertionEffect(() => {
-    console.log(editTempData);
-  }, [editTempData]);
 
   const isEditing = (boolArr: boolean[]) => {
     let isEditing: boolean = false;
@@ -51,12 +48,8 @@ const GenericTable = (props: PrivateProps) => {
     if (edited[index]) {
       setEdited([...edited.slice(0, index), false, ...edited.slice(index + 1)]);
       props.editLine(index, editTempData);
-
-      //TODO pencil icon to save
     } else {
       setEdited([...edited.slice(0, index), true, ...edited.slice(index + 1)]);
-
-      //TODO save icon to pencil
     }
 
     let tempArr: any = [];
@@ -81,6 +74,12 @@ const GenericTable = (props: PrivateProps) => {
       event.target.value,
       ...editTempData.slice(j + 1),
     ]);
+  };
+
+  const changePencil = (index: number): boolean => {
+    const [currentEditing, editingIndex] = isEditing(edited);
+    if (currentEditing && editingIndex === index) return true;
+    return false;
   };
 
   let tableBody = props.dataArray.map((array, i) => {
@@ -119,7 +118,11 @@ const GenericTable = (props: PrivateProps) => {
         })}
         <td className={styles.actions}>
           <div className={styles.wrapper} onClick={() => editHandler(i)}>
-            <img src={Pencil} alt="pencil icon" className={styles.icon} />
+            {changePencil(i) ? (
+              <img src={Check} alt="check icon" className={styles.icon} />
+            ) : (
+              <img src={Pencil} alt="pencil icon" className={styles.icon} />
+            )}
           </div>
           <div className={styles.wrapper} onClick={() => deleteHandler(i)}>
             <img src={Trash} alt="trash icon" className={styles.icon} />
