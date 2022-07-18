@@ -28,6 +28,7 @@ const ProductsScreen = () => {
   };
 
   const deleteLineHandler = (index: any) => {
+    console.log(tableData);
     setTableData(
       tableData.filter((el) => {
         return el[0] !== index;

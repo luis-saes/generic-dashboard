@@ -95,7 +95,10 @@ const GenericTable = (props: PrivateProps) => {
 
   const addSaveHandler = () => {
     setAddingNewLine(false);
-    props.addLine([Number(props.dataArray?.at(-1)?.at(0)), ...editTempData]);
+    props.addLine([
+      Number(props.dataArray?.at(-1)?.at(0)) + 1,
+      ...editTempData,
+    ]);
   };
 
   const changePencil = (index: number): boolean => {
