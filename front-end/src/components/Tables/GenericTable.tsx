@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Toast from "react-bootstrap/Toast";
+import Button from "react-bootstrap/Button";
 import Pencil from "../../assets/pencil-fill.svg";
 import Trash from "../../assets/trash-fill.svg";
 import Check from "../../assets/check-circle-fill.svg";
@@ -21,6 +22,7 @@ const GenericTable = (props: PrivateProps) => {
   const [editTempData, setEditTempData] = useState<(string | number)[]>([]);
   const [show, setShow] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
+  const [addingNewLine, setAddingNewLine] = useState<boolean>(false);
 
   const headArrayLength: number = props.headArray.length;
 
@@ -76,11 +78,58 @@ const GenericTable = (props: PrivateProps) => {
     ]);
   };
 
+  const addNewLineHandler = () => {
+    setAddingNewLine(true);
+  };
+
   const changePencil = (index: number): boolean => {
     const [currentEditing, editingIndex] = isEditing(edited);
     if (currentEditing && editingIndex === index) return true;
     return false;
   };
+
+  const i = 0;
+  const newLine = (
+    <tr key={i}>
+      {props.headArray.map((val, j) => {
+        if (j === 0) {
+          return (
+            <td key={j} style={{ width: "5%" }}>
+              {Number(props.dataArray?.at(-1)?.at(0)) + 1}
+            </td>
+          );
+        } else {
+          return (
+            <td
+              key={j}
+              className={styles.editing}
+              style={{
+                width: 90 / (headArrayLength - 1) + "%",
+              }}
+            >
+              <Form.Control
+                size="sm"
+                defaultValue={editTempData[j - 1]}
+                onChange={(event) => typeHandler(event, i, j - 1)}
+              />
+            </td>
+          );
+        }
+      })}
+      <td className={styles.actions}>
+        <div className={styles.wrapper} onClick={() => editHandler(i)}>
+          {changePencil(i) ? (
+            <img src={Check} alt="check icon" className={styles.icon} />
+          ) : (
+            <img src={Pencil} alt="pencil icon" className={styles.icon} />
+          )}
+        </div>
+        <div className={styles.wrapper} onClick={() => deleteHandler(i)}>
+          <img src={Trash} alt="trash icon" className={styles.icon} />
+        </div>
+      </td>
+    </tr>
+  );
 
   let tableBody = props.dataArray.map((array, i) => {
     return (
@@ -151,6 +200,12 @@ const GenericTable = (props: PrivateProps) => {
   return (
     <div className={styles.main}>
       {toast}
+      <div className={styles.tableHeader}>
+        <div className={styles.title}>Products</div>
+        <Button variant="success" size="sm" onClick={addNewLineHandler}>
+          + Add New Product
+        </Button>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -160,7 +215,10 @@ const GenericTable = (props: PrivateProps) => {
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>{tableBody}</tbody>
+        <tbody>
+          {tableBody}
+          {addingNewLine ? newLine : null}
+        </tbody>
       </Table>
     </div>
   );

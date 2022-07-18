@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Dashboard/Sidebar";
 import GenericTable from "../components/Tables/GenericTable";
-import Button from "react-bootstrap/Button";
 import styles from "./ProductsScreen.module.css";
 import stylesBoard from "./Board.module.css";
 import stylesSidebar from "./SidebarMain.module.css";
@@ -40,12 +39,6 @@ const ProductsScreen = () => {
     <div className={stylesSidebar.main}>
       <Sidebar />
       <div className={stylesBoard.board}>
-        <div className={stylesBoard.tableHeader}>
-          <div className={stylesBoard.title}>Products</div>
-          <Button variant="success" size="sm">
-            + Add New Product
-          </Button>
-        </div>
         <GenericTable
           headArray={headArray}
           dataArray={tableData}
