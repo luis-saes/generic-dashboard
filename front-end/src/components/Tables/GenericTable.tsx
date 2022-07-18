@@ -45,6 +45,10 @@ const GenericTable = (props: PrivateProps) => {
       setToastMessage("Only one line can be edited at a time.");
       setShow(true);
       return;
+    } else if (addingNewLine) {
+      setToastMessage("Only one line can be changed at a time.");
+      setShow(true);
+      return;
     }
 
     if (edited[index]) {
@@ -65,21 +69,25 @@ const GenericTable = (props: PrivateProps) => {
       setToastMessage("Finish editing before trying to remove.");
       setShow(true);
       return;
+    } else if (addingNewLine) {
+      setToastMessage("Finish adding new line before trying to remove.");
+      setShow(true);
+      return;
     }
     props.deleteLine(props.dataArray[index][0]);
   };
 
-  const typeHandler = (event: any, i: number, j: number): void => {
+  const typeHandler = (event: any, index: number): void => {
     event.preventDefault();
     setEditTempData([
-      ...editTempData.slice(0, j),
+      ...editTempData.slice(0, index),
       event.target.value,
-      ...editTempData.slice(j + 1),
+      ...editTempData.slice(index + 1),
     ]);
   };
 
   const addNewLineHandler = () => {
-    setAddingNewLine(true);
+    setAddingNewLine(!addingNewLine);
   };
 
   const changePencil = (index: number): boolean => {
@@ -88,20 +96,19 @@ const GenericTable = (props: PrivateProps) => {
     return false;
   };
 
-  const i = 0;
   const newLine = (
-    <tr key={i}>
-      {props.headArray.map((val, j) => {
-        if (j === 0) {
+    <tr>
+      {props.headArray.map((val, i) => {
+        if (i === 0) {
           return (
-            <td key={j} style={{ width: "5%" }}>
+            <td key={i + props.dataArray.length} style={{ width: "5%" }}>
               {Number(props.dataArray?.at(-1)?.at(0)) + 1}
             </td>
           );
         } else {
           return (
             <td
-              key={j}
+              key={i + props.dataArray.length}
               className={styles.editing}
               style={{
                 width: 90 / (headArrayLength - 1) + "%",
@@ -109,22 +116,18 @@ const GenericTable = (props: PrivateProps) => {
             >
               <Form.Control
                 size="sm"
-                defaultValue={editTempData[j - 1]}
-                onChange={(event) => typeHandler(event, i, j - 1)}
+                defaultValue={editTempData[i - 1]}
+                onChange={(event) => typeHandler(event, i - 1)}
               />
             </td>
           );
         }
       })}
       <td className={styles.actions}>
-        <div className={styles.wrapper} onClick={() => editHandler(i)}>
-          {changePencil(i) ? (
-            <img src={Check} alt="check icon" className={styles.icon} />
-          ) : (
-            <img src={Pencil} alt="pencil icon" className={styles.icon} />
-          )}
+        <div className={styles.wrapper}>
+          <img src={Pencil} alt="pencil icon" className={styles.icon} />
         </div>
-        <div className={styles.wrapper} onClick={() => deleteHandler(i)}>
+        <div className={styles.wrapper}>
           <img src={Trash} alt="trash icon" className={styles.icon} />
         </div>
       </td>
@@ -159,7 +162,7 @@ const GenericTable = (props: PrivateProps) => {
                 <Form.Control
                   size="sm"
                   defaultValue={editTempData[j - 1]}
-                  onChange={(event) => typeHandler(event, i, j - 1)}
+                  onChange={(event) => typeHandler(event, j - 1)}
                 />
               </td>
             );
@@ -202,8 +205,13 @@ const GenericTable = (props: PrivateProps) => {
       {toast}
       <div className={styles.tableHeader}>
         <div className={styles.title}>Products</div>
-        <Button variant="success" size="sm" onClick={addNewLineHandler}>
-          + Add New Product
+        <Button
+          variant={`${addingNewLine ? "danger" : "success"}`}
+          size="sm"
+          onClick={addNewLineHandler}
+          className={styles.addButton}
+        >
+          {`${addingNewLine ? "Cancel" : "+ Add New Product"}`}
         </Button>
       </div>
       <Table striped bordered hover>
