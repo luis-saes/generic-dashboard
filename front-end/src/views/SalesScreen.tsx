@@ -41,6 +41,7 @@ const SalesScreen = () => {
           dataArray={tableData}
           editLine={editLineHandler}
           deleteLine={deleteLineHandler}
+          addLine={() => console.log(0)}
         />
       </div>
     </div>

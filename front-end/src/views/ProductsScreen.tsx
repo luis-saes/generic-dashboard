@@ -35,6 +35,10 @@ const ProductsScreen = () => {
     );
   };
 
+  const addLineHandler = (val: (string | number)[]) => {
+    setTableData([...tableData, val]);
+  };
+
   return (
     <div className={stylesSidebar.main}>
       <Sidebar />
@@ -44,6 +48,7 @@ const ProductsScreen = () => {
           dataArray={tableData}
           editLine={editLineHandler}
           deleteLine={deleteLineHandler}
+          addLine={addLineHandler}
         />
       </div>
     </div>

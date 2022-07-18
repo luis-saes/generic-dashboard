@@ -35,6 +35,7 @@ const ClientsScreen = () => {
           dataArray={tableData}
           editLine={editLineHandler}
           deleteLine={deleteLineHandler}
+          addLine={() => console.log(0)}
         />
       </div>
     </div>

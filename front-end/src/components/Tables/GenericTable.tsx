@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Pencil from "../../assets/pencil-fill.svg";
 import Trash from "../../assets/trash-fill.svg";
 import Check from "../../assets/check-circle-fill.svg";
+import Cancel from "../../assets/x-circle-fill.svg";
 import styles from "./GenericTable.module.css";
 
 type PrivateProps = {
@@ -13,6 +14,7 @@ type PrivateProps = {
   dataArray: (string | number)[][];
   editLine: (index: any, newLine: (string | number)[]) => void;
   deleteLine: (val: string | number) => void;
+  addLine: (val: (string | number)[]) => void;
 };
 
 const GenericTable = (props: PrivateProps) => {
@@ -87,7 +89,13 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const addNewLineHandler = () => {
+    setEditTempData([]);
     setAddingNewLine(!addingNewLine);
+  };
+
+  const addSaveHandler = () => {
+    setAddingNewLine(false);
+    props.addLine([Number(props.dataArray?.at(-1)?.at(0)), ...editTempData]);
   };
 
   const changePencil = (index: number): boolean => {
@@ -124,11 +132,11 @@ const GenericTable = (props: PrivateProps) => {
         }
       })}
       <td className={styles.actions}>
-        <div className={styles.wrapper}>
-          <img src={Pencil} alt="pencil icon" className={styles.icon} />
+        <div className={styles.wrapper} onClick={addSaveHandler}>
+          <img src={Check} alt="check icon" className={styles.icon} />
         </div>
-        <div className={styles.wrapper}>
-          <img src={Trash} alt="trash icon" className={styles.icon} />
+        <div className={styles.wrapper} onClick={addNewLineHandler}>
+          <img src={Cancel} alt="cancel icon" className={styles.icon} />
         </div>
       </td>
     </tr>
