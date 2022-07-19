@@ -15,6 +15,11 @@ const ClientsScreen = () => {
     [4, "Damon Bryant", 5238765584],
     [5, "Ayra Martins", 4782410090],
   ]);
+  const [dataTypes, setDataTypes] = useState<string[]>([
+    "number",
+    "text",
+    "number",
+  ]);
 
   const editLineHandler = (index: any, newLine: (string | number)[]) => {};
 
@@ -32,6 +37,7 @@ const ClientsScreen = () => {
       <div className={stylesBoard.board}>
         <GenericTable
           headArray={headArray}
+          dataTypes={dataTypes}
           dataArray={tableData}
           editLine={editLineHandler}
           deleteLine={deleteLineHandler}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Toast from "react-bootstrap/Toast";
@@ -11,6 +11,7 @@ import styles from "./GenericTable.module.css";
 
 type PrivateProps = {
   headArray: string[];
+  dataTypes: string[];
   dataArray: (string | number)[][];
   editLine: (index: any, newLine: (string | number)[]) => void;
   deleteLine: (val: string | number) => void;
@@ -25,24 +26,90 @@ const GenericTable = (props: PrivateProps) => {
   const [show, setShow] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
   const [addingNewLine, setAddingNewLine] = useState<boolean>(false);
+  const [validatedData, setValidatedData] = useState<boolean[]>(
+    props.headArray.slice(1).map((el) => false)
+  );
+
+  useEffect(() => {
+    console.log(0);
+  }, [validatedData]);
 
   const headArrayLength: number = props.headArray.length;
 
-  const isEditing = (boolArr: boolean[]) => {
-    let isEditing: boolean = false;
+  const anyFalse = (boolArr: boolean[]) => {
+    let anyFalse: boolean = false;
     let index: number = 0;
     boolArr.forEach((el, i) => {
       if (el) {
-        isEditing = true;
+        anyFalse = true;
         index = i;
         return;
       }
     });
-    return [isEditing, index];
+    return [anyFalse, index];
+  };
+
+  const anyEmpty = (tempData: (string | number)[]): boolean => {
+    let anyEmpty = false;
+    tempData.forEach((el) => {
+      if (!el) {
+        anyEmpty = true;
+      }
+    });
+
+    return anyEmpty;
+  };
+
+  const validation = (arr: (string | number)[], types: string[]) => {
+    props.headArray.slice(1).forEach((el, i) => {
+      if (!arr[i]) {
+        setValidatedData([
+          ...validatedData.slice(0, i),
+          true,
+          ...validatedData.slice(i + 1),
+        ]);
+      } else if (types[i] === "string") {
+        if (typeof arr[i] === "string") {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            false,
+            ...validatedData.slice(i + 1),
+          ]);
+        } else {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            true,
+            ...validatedData.slice(i + 1),
+          ]);
+        }
+      } else if (types[i] === "number") {
+        if (typeof Number(arr[i]) === "number") {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            false,
+            ...validatedData.slice(i + 1),
+          ]);
+        } else {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            true,
+            ...validatedData.slice(i + 1),
+          ]);
+        }
+      }
+    });
+
+    setValidatedData((state) => {
+      console.log(state); // "React is awesome!"
+
+      return state;
+    });
+    console.log(validatedData);
   };
 
   const editHandler = (index: number): void => {
-    const [currentEditing, editingIndex] = isEditing(edited);
+    //TODO: add validation
+    const [currentEditing, editingIndex] = anyFalse(edited);
     if (currentEditing && editingIndex !== index) {
       setToastMessage("Only one line can be edited at a time.");
       setShow(true);
@@ -67,7 +134,7 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const deleteHandler = (index: number): void => {
-    if (isEditing(edited)[0]) {
+    if (anyFalse(edited)[0]) {
       setToastMessage("Finish editing before trying to remove.");
       setShow(true);
       return;
@@ -89,11 +156,18 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const addNewLineHandler = () => {
-    setEditTempData([]);
+    setEditTempData(props.headArray.slice(1).map((el) => ""));
     setAddingNewLine(!addingNewLine);
   };
 
   const addSaveHandler = () => {
+    validation(editTempData, props.dataTypes.slice(1));
+    if (anyFalse(validatedData)[0] || anyEmpty(editTempData)) {
+      console.log("Fail!!");
+      return;
+    } else {
+      console.log("Success!!");
+    }
     setAddingNewLine(false);
     props.addLine([
       Number(props.dataArray?.at(-1)?.at(0)) + 1,
@@ -102,7 +176,7 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const changePencil = (index: number): boolean => {
-    const [currentEditing, editingIndex] = isEditing(edited);
+    const [currentEditing, editingIndex] = anyFalse(edited);
     if (currentEditing && editingIndex === index) return true;
     return false;
   };
@@ -126,7 +200,9 @@ const GenericTable = (props: PrivateProps) => {
               }}
             >
               <Form.Control
+                type={props.dataTypes[i]}
                 size="sm"
+                isInvalid={validatedData[i] ? false : true}
                 defaultValue={editTempData[i - 1]}
                 onChange={(event) => typeHandler(event, i - 1)}
               />
