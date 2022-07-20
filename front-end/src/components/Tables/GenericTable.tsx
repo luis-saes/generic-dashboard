@@ -31,8 +31,45 @@ const GenericTable = (props: PrivateProps) => {
   );
 
   useEffect(() => {
-    console.log(0);
-  }, [validatedData]);
+    props.headArray.slice(1).forEach((el, i) => {
+      if (!editTempData[i]) {
+        setValidatedData([
+          ...validatedData.slice(0, i),
+          true,
+          ...validatedData.slice(i + 1),
+        ]);
+      } else if (props.dataTypes.slice(1)[i] === "string") {
+        if (typeof editTempData[i] === "string") {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            false,
+            ...validatedData.slice(i + 1),
+          ]);
+        } else {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            true,
+            ...validatedData.slice(i + 1),
+          ]);
+        }
+      } else if (props.dataTypes.slice(1)[i] === "number") {
+        if (typeof Number(editTempData[i]) === "number") {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            false,
+            ...validatedData.slice(i + 1),
+          ]);
+        } else {
+          setValidatedData([
+            ...validatedData.slice(0, i),
+            true,
+            ...validatedData.slice(i + 1),
+          ]);
+        }
+      }
+    });
+    console.log(validatedData);
+  }, [editTempData]);
 
   const headArrayLength: number = props.headArray.length;
 
@@ -58,53 +95,6 @@ const GenericTable = (props: PrivateProps) => {
     });
 
     return anyEmpty;
-  };
-
-  const validation = (arr: (string | number)[], types: string[]) => {
-    props.headArray.slice(1).forEach((el, i) => {
-      if (!arr[i]) {
-        setValidatedData([
-          ...validatedData.slice(0, i),
-          true,
-          ...validatedData.slice(i + 1),
-        ]);
-      } else if (types[i] === "string") {
-        if (typeof arr[i] === "string") {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            false,
-            ...validatedData.slice(i + 1),
-          ]);
-        } else {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            true,
-            ...validatedData.slice(i + 1),
-          ]);
-        }
-      } else if (types[i] === "number") {
-        if (typeof Number(arr[i]) === "number") {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            false,
-            ...validatedData.slice(i + 1),
-          ]);
-        } else {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            true,
-            ...validatedData.slice(i + 1),
-          ]);
-        }
-      }
-    });
-
-    setValidatedData((state) => {
-      console.log(state); // "React is awesome!"
-
-      return state;
-    });
-    console.log(validatedData);
   };
 
   const editHandler = (index: number): void => {
@@ -161,12 +151,10 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const addSaveHandler = () => {
-    validation(editTempData, props.dataTypes.slice(1));
     if (anyFalse(validatedData)[0] || anyEmpty(editTempData)) {
-      console.log("Fail!!");
+      setToastMessage("Correct field data");
+      setShow(true);
       return;
-    } else {
-      console.log("Success!!");
     }
     setAddingNewLine(false);
     props.addLine([
@@ -202,7 +190,6 @@ const GenericTable = (props: PrivateProps) => {
               <Form.Control
                 type={props.dataTypes[i]}
                 size="sm"
-                isInvalid={validatedData[i] ? false : true}
                 defaultValue={editTempData[i - 1]}
                 onChange={(event) => typeHandler(event, i - 1)}
               />
