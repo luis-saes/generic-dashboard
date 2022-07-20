@@ -26,50 +26,6 @@ const GenericTable = (props: PrivateProps) => {
   const [show, setShow] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>("");
   const [addingNewLine, setAddingNewLine] = useState<boolean>(false);
-  const [validatedData, setValidatedData] = useState<boolean[]>(
-    props.headArray.slice(1).map((el) => false)
-  );
-
-  useEffect(() => {
-    props.headArray.slice(1).forEach((el, i) => {
-      if (!editTempData[i]) {
-        setValidatedData([
-          ...validatedData.slice(0, i),
-          true,
-          ...validatedData.slice(i + 1),
-        ]);
-      } else if (props.dataTypes.slice(1)[i] === "string") {
-        if (typeof editTempData[i] === "string") {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            false,
-            ...validatedData.slice(i + 1),
-          ]);
-        } else {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            true,
-            ...validatedData.slice(i + 1),
-          ]);
-        }
-      } else if (props.dataTypes.slice(1)[i] === "number") {
-        if (typeof Number(editTempData[i]) === "number") {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            false,
-            ...validatedData.slice(i + 1),
-          ]);
-        } else {
-          setValidatedData([
-            ...validatedData.slice(0, i),
-            true,
-            ...validatedData.slice(i + 1),
-          ]);
-        }
-      }
-    });
-    console.log(validatedData);
-  }, [editTempData]);
 
   const headArrayLength: number = props.headArray.length;
 
@@ -86,19 +42,7 @@ const GenericTable = (props: PrivateProps) => {
     return [anyFalse, index];
   };
 
-  const anyEmpty = (tempData: (string | number)[]): boolean => {
-    let anyEmpty = false;
-    tempData.forEach((el) => {
-      if (!el) {
-        anyEmpty = true;
-      }
-    });
-
-    return anyEmpty;
-  };
-
   const editHandler = (index: number): void => {
-    //TODO: add validation
     const [currentEditing, editingIndex] = anyFalse(edited);
     if (currentEditing && editingIndex !== index) {
       setToastMessage("Only one line can be edited at a time.");
@@ -151,11 +95,6 @@ const GenericTable = (props: PrivateProps) => {
   };
 
   const addSaveHandler = () => {
-    if (anyFalse(validatedData)[0] || anyEmpty(editTempData)) {
-      setToastMessage("Correct field data");
-      setShow(true);
-      return;
-    }
     setAddingNewLine(false);
     props.addLine([
       Number(props.dataArray?.at(-1)?.at(0)) + 1,
