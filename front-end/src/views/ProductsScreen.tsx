@@ -6,8 +6,12 @@ import stylesBoard from "./Board.module.css";
 import stylesSidebar from "./SidebarMain.module.css";
 
 const ProductsScreen = () => {
-  const headArray: string[] = ["ID", "Name", "Price", "Available Quantity"];
-
+  const [headArray, setHeadArray] = useState<string[]>([
+    "ID",
+    "Name",
+    "Price",
+    "Available Quantity",
+  ]);
   const [tableData, setTableData] = useState<(string | number)[][]>([
     [1, "meat", 109.9, 15],
     [2, "rice", 45.99, 97],

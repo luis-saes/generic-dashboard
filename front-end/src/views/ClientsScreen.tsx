@@ -6,8 +6,11 @@ import stylesBoard from "./Board.module.css";
 import stylesSidebar from "./SidebarMain.module.css";
 
 const ClientsScreen = () => {
-  const headArray: string[] = ["ID", "Name", "Cell Phone Number"];
-
+  const [headArray, setHeadArray] = useState<string[]>([
+    "ID",
+    "Name",
+    "Cell Phone Number",
+  ]);
   const [tableData, setTableData] = useState<(string | number)[][]>([
     [1, "Laibah Ashley", 7079690494],
     [2, "Joseff Stark", 9118041434],
@@ -21,14 +24,28 @@ const ClientsScreen = () => {
     "number",
   ]);
 
-  const editLineHandler = (index: any, newLine: (string | number)[]) => {};
+  const editLineHandler = (index: any, newLine: (string | number)[]) => {
+    let newLineWithIndex: (string | number)[] = [];
+    newLineWithIndex = [...tableData[index].slice(0, 1), ...newLine];
+
+    setTableData([
+      ...tableData.slice(0, index),
+      newLineWithIndex,
+      ...tableData.slice(index + 1),
+    ]);
+  };
 
   const deleteLineHandler = (index: any) => {
+    console.log(tableData);
     setTableData(
       tableData.filter((el) => {
         return el[0] !== index;
       })
     );
+  };
+
+  const addLineHandler = (val: (string | number)[]) => {
+    setTableData([...tableData, val]);
   };
 
   return (
@@ -41,7 +58,7 @@ const ClientsScreen = () => {
           dataArray={tableData}
           editLine={editLineHandler}
           deleteLine={deleteLineHandler}
-          addLine={() => console.log(0)}
+          addLine={addLineHandler}
         />
       </div>
     </div>
