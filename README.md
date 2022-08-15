@@ -10,13 +10,13 @@
 
   <p align="center">
     Just a Generic Dashboard
-    <br />
+  </p>
+  <br />
 </div>
 
 ## About The Project
 
-This Dashboard was created with the purpose of showing knowledge in different web development abilities. 
-Made with the intention of showing my development flow and skills.
+This Dashboard was created with the purpose of getting knowledge in different web development abilities. 
 You can check the design through the link: https://www.figma.com/file/WFyRPMM0S1pHvFf4vN5vl6/Generic-Dashboard
 
 ### Built With
@@ -25,6 +25,16 @@ You can check the design through the link: https://www.figma.com/file/WFyRPMM0S1
 * [![Express][Express.js]][Express-url]
 * [![TypeScript][TypeScript]][TypeScript-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
+
+## How to Contribute
+
+1. Choose an issue from the repository and leave a comment showing interest in solving it.
+2. Fork the repository, create a new branch and develop the work requested in the issue, utilizing the correct file to make the changes, as specified in the chosen issue
+3. When the work is finished, submit a Pull Request whose message body must comply with the following template:
+
+Description: Provide a brief description of the work performed.
+<BLANK LINE>
+Fixes #<ISSUE NUMBER THAT WAS SOLVED>
 
 ## Getting Started
 
