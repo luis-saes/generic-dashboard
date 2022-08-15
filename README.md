@@ -32,9 +32,11 @@ You can check the design through the link: https://www.figma.com/file/WFyRPMM0S1
 2. Fork the repository, create a new branch and develop the work requested in the issue, utilizing the correct file to make the changes, as specified in the chosen issue
 3. When the work is finished, submit a Pull Request whose message body must comply with the following template:
 
+```
 Description: Provide a brief description of the work performed.
 <BLANK LINE>
 Fixes #<ISSUE NUMBER THAT WAS SOLVED>
+```
 
 ## Getting Started
 
