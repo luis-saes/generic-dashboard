@@ -1,4 +1,6 @@
-<a target="_blank" href="https://www.linkedin.com/in/luis-saes/">![LinkedIn][linkedin-shield]</a>
+<p>EN | 
+  <a href="https://github.com/luis-saes/portfolio-dashboard/blob/main/README-pt-BR.md">PT</a>
+</p>
 
 <br />
 <div align="center">
