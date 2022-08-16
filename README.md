@@ -26,11 +26,19 @@ You can check the design through the link: https://www.figma.com/file/WFyRPMM0S1
 * [![TypeScript][TypeScript]][TypeScript-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
+## Installation
+
+To get a copy of the dashboard code on your machine, just clone the repository with the following command:
+```sh
+$ git clone https://github.com/luis-saes/portfolio-dashboard.git
+```
+
 ## How to Contribute
 
 1. Choose an issue from the repository and leave a comment showing interest in solving it.
-2. Fork the repository, create a new branch and develop the work requested in the issue, utilizing the correct file to make the changes, as specified in the chosen issue
-3. When the work is finished, submit a Pull Request whose message body must comply with the following template:
+2. Install the project on your machine
+3. Fork the repository, create a new branch and develop the work requested in the issue, utilizing the correct file to make the changes, as specified in the chosen issue
+4. When the work is finished, submit a Pull Request whose message body must comply with the following template:
 
 ```
 Description: Provide a brief description of the work performed.
@@ -47,16 +55,11 @@ WIP
 Node version 16.16.0 or later.
 NPM version 8.13.2 or later.
 
-### Installation
-
-To get a copy of the dashboard code on your machine, just clone the repository with the following command:
-```sh
-$ git clone https://github.com/luis-saes/portfolio-dashboard.git
-```
-
 # Usage
 
-WIP
+1. Install the project on your machine.
+2. Run the React front-end by acessing the folder `/front-end` and running the terminal command `npm start`.
+3. Acess `localhost:3000/login` for the login screen and `localhost:3000/dashboard` for the dashboard screen.
 
 # Roadmap
 
