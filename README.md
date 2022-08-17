@@ -58,8 +58,8 @@ NPM version 8.13.2 or later.
 # Usage
 
 1. Install the project on your machine.
-2. Run the React front-end by acessing the folder `/front-end` and running the terminal command `npm start`.
-3. Acess `localhost:3000/login` for the login screen and `localhost:3000/dashboard` for the dashboard screen.
+2. Run the React front-end by accessing the folder `/front-end` and running the terminal command `npm start`.
+3. Access `localhost:3000/login` for the login screen and `localhost:3000/dashboard` for the dashboard screen.
 
 # Roadmap
 
