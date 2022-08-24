@@ -24,7 +24,7 @@ const ClientsScreen = () => {
     "number",
   ]);
 
-  const editLineHandler = (index: any, newLine: (string | number)[]) => {
+  const editLineHandler = (index: number, newLine: (string | number)[]) => {
     let newLineWithIndex: (string | number)[] = [];
     newLineWithIndex = [...tableData[index].slice(0, 1), ...newLine];
 
@@ -35,7 +35,7 @@ const ClientsScreen = () => {
     ]);
   };
 
-  const deleteLineHandler = (index: any) => {
+  const deleteLineHandler = (index: string | number) => {
     console.log(tableData);
     setTableData(
       tableData.filter((el) => {
