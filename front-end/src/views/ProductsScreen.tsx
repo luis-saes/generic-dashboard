@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { editLine, deleteLine } from "../utils/Utils";
 import Sidebar from "../components/Dashboard/Sidebar";
 import GenericTable from "../components/Tables/GenericTable";
 import styles from "./ProductsScreen.module.css";
@@ -27,23 +28,11 @@ const ProductsScreen = () => {
   ]);
 
   const editLineHandler = (index: number, newLine: (string | number)[]) => {
-    let newLineWithIndex: (string | number)[] = [];
-    newLineWithIndex = [...tableData[index].slice(0, 1), ...newLine];
-
-    setTableData([
-      ...tableData.slice(0, index),
-      newLineWithIndex,
-      ...tableData.slice(index + 1),
-    ]);
+    editLine(index, newLine, setTableData, tableData);
   };
 
   const deleteLineHandler = (index: string | number) => {
-    console.log(tableData);
-    setTableData(
-      tableData.filter((el) => {
-        return el[0] !== index;
-      })
-    );
+    deleteLine(index, setTableData);
   };
 
   const addLineHandler = (val: (string | number)[]) => {

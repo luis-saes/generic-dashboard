@@ -17,7 +17,7 @@ const editLine = (
 };
 
 const deleteLine = (
-  index: number,
+  index: string | number,
   setTableData: React.Dispatch<React.SetStateAction<(string | number)[][]>>
 ) => {
   setTableData((currentTableData: (string | number)[][]) =>
