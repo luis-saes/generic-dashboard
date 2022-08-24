@@ -13,7 +13,7 @@ type PrivateProps = {
   headArray: string[];
   dataTypes: string[];
   dataArray: (string | number)[][];
-  editLine: (index: any, newLine: (string | number)[]) => void;
+  editLine: (index: number, newLine: (string | number)[]) => void;
   deleteLine: (val: string | number) => void;
   addLine: (val: (string | number)[]) => void;
 };
@@ -61,7 +61,7 @@ const GenericTable = (props: PrivateProps) => {
       setEdited([...edited.slice(0, index), true, ...edited.slice(index + 1)]);
     }
 
-    let tempArr: any = [];
+    let tempArr: (string | number)[] = [];
     tempArr = props.dataArray[index].slice(1);
 
     setEditTempData([...tempArr]);
@@ -80,7 +80,7 @@ const GenericTable = (props: PrivateProps) => {
     props.deleteLine(props.dataArray[index][0]);
   };
 
-  const typeHandler = (event: any, index: number): void => {
+  const typeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number): void => {
     event.preventDefault();
     setEditTempData([
       ...editTempData.slice(0, index),
