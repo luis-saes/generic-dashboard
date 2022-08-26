@@ -1,5 +1,5 @@
 import React from "react";
-import Modal from "../components/Login/Modal";
+import Modal from "../components/login/Modal";
 import styles from "./LoginScreen.module.css";
 
 const LoginScreen = () => {

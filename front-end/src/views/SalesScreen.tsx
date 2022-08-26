@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { editLine, deleteLine } from "../utils/Utils";
-import Sidebar from "../components/Dashboard/Sidebar";
-import GenericTable from "../components/Tables/GenericTable";
+import Sidebar from "../components/dashboard/Sidebar";
+import GenericTable from "../components/tables/GenericTable";
 import styles from "./SalesScreen.module.css";
 import stylesBoard from "./Board.module.css";
 import stylesSidebar from "./SidebarMain.module.css";

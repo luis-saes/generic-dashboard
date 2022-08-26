@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "../components/Dashboard/Sidebar";
+import Sidebar from "../components/dashboard/Sidebar";
 import styles from "./DashboardMain.module.css";
 import stylesBoard from "./Board.module.css";
 import stylesSidebar from "./SidebarMain.module.css";
