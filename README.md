@@ -4,7 +4,7 @@
 
 <br />
 <div align="center">
-  <img src="images/logo.png" alt="Logo" width="200" height="200" />
+  <img src="images/new-logo.png" alt="Logo" width="300" height="300" />
 
   <h2 align="center">Generic Dashboard</h2>
 
